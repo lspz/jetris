@@ -18,9 +18,9 @@ public class MainView extends JFrame {
     this.model = model; 
     
     gridView = new GridView(model);
-    sidePaneView = new SidePaneView()
+    sidePaneView = new SidePaneView(model);
     getContentPane().add(gridView, BorderLayout.CENTER);
-    getContentPane().add(sidePaneView, BorderLayout.LEFT);
+    getContentPane().add(sidePaneView, BorderLayout.WEST);
     
     pack();
 
@@ -28,14 +28,24 @@ public class MainView extends JFrame {
     setResizable(false);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     setLocationRelativeTo(null);
+    setFocusable(true);
+  }
+
+  public void restartGame(){
+    sidePaneView.btnRestart.setText("Restart");
   }
 
   public void refresh(){
     gridView.repaint();
+    sidePaneView.refresh();
   }
 
   public void setController(Controller controller){
     addKeyListener(controller);
     sidePaneView.addActionListener(controller);
+  }
+
+  public void setStatusMsg(String msg){
+    setTitle("Tetris" + (msg !="" ? " - " : "") + msg);  
   }
 }

@@ -30,7 +30,10 @@ public class TetriminoFactory
   }
 
   public Tetrimino createRandom() {
-    int i = randomiser.nextInt(prototypes.size()-1) + 1; // Start from 1
+    int i = randomiser.nextInt(prototypes.size()); // Start from 1
+    if (tetriminoTypes[i] == TetriminoType.NONE) {
+      return createRandom();
+    }
     return create(tetriminoTypes[i]);
   }
 
@@ -38,8 +41,8 @@ public class TetriminoFactory
   
   private void addI() {
     int[][] state1 = {
-      {1, 1, 1, 1},
       {0, 0, 0, 0},
+      {1, 1, 1, 1},
       {0, 0, 0, 0},
       {0, 0, 0, 0}
     };
@@ -63,27 +66,27 @@ public class TetriminoFactory
 
   private void addJ() {
     int[][] state1 = {
-      {0, 0, 1},
-      {0, 0, 1},
-      {0, 1, 1}
+      {0, 1, 0},
+      {0, 1, 0},
+      {1, 1, 0}
     };
 
     int[][] state2 = {
-      {0, 0, 0},
       {1, 0, 0},
-      {1, 1, 1}
+      {1, 1, 1},
+      {0, 0, 0},
     };
 
     int[][] state3 = {
-      {1, 1, 0},
-      {1, 0, 0},
-      {1, 0, 0}
+      {0, 1, 1},
+      {0, 1, 0},
+      {0, 1, 0}
     };
 
     int[][] state4 = {
+      {0, 0, 0},
       {1, 1, 1},
-      {0, 0, 1},
-      {0, 0, 0}
+      {0, 0, 1}
     };
 
     CircularList<TetriminoState> stateList = new CircularList<TetriminoState>();
@@ -100,27 +103,27 @@ public class TetriminoFactory
 
   private void addL() {
     int[][] state1 = {
-      {1, 0, 0},
-      {1, 0, 0},
-      {1, 1, 0}
+      {0, 1, 0},
+      {0, 1, 0},
+      {0, 1, 1}
     };
 
     int[][] state2 = {
+      {0, 0, 0},
       {1, 1, 1},
-      {1, 0, 0},
-      {0, 0, 0}
+      {1, 0, 0}
     };
 
     int[][] state3 = {
-      {0, 1, 1},
-      {0, 0, 1},
-      {0, 0, 1}
+      {1, 1, 0},
+      {0, 1, 0},
+      {0, 1, 0}
     };
 
     int[][] state4 = {
-      {0, 0, 0},
       {0, 0, 1},
-      {1, 1, 1}
+      {1, 1, 1},
+      {0, 0, 0}
     };
 
     CircularList<TetriminoState> stateList = new CircularList<TetriminoState>();
@@ -232,21 +235,21 @@ public class TetriminoFactory
     };
 
     int[][] state2 = {      
-      {1, 0, 0},
-      {1, 1, 0},
-      {1, 0, 0}
+      {0, 1, 0},
+      {0, 1, 1},
+      {0, 1, 0}
     };
 
     int[][] state3 = {
+      {0, 0, 0},
       {1, 1, 1},
-      {0, 1, 0},
-      {0, 0, 0}
+      {0, 1, 0}
     };
 
     int[][] state4 = {
-      {0, 0, 1},
-      {0, 1, 1},
-      {0, 0, 1}
+      {0, 1, 0},
+      {1, 1, 0},
+      {0, 1, 0}
     };
 
     CircularList<TetriminoState> stateList = new CircularList<TetriminoState>();

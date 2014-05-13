@@ -1,12 +1,17 @@
 package yetris.util;
 
-public class CircularList<E> {
+public class CircularList<E> implements Cloneable{
 
   private Node<E> start, current; 
 
   public CircularList() {
     start = null;
     current = null;
+  }
+
+  private CircularList(Node<E> start, Node<E> current) {
+    this.start = start;
+    this.current = current;
   }
 
   public void add(E item) {
@@ -24,15 +29,28 @@ public class CircularList<E> {
     current = node;
   }
 
-  public E get() {
-    return current.item;
-  }
-
-  public void next() {
+  public void goNext() {
     current = current.next;
   }
 
-  public void prev() {
+  public void goPrev() {
     current = current.prev;
+  }
+
+  public E getCurrent() {
+    return current.item;
+  }
+
+  public E getNext() {
+    return current.next.item;
+  }
+
+  public E getPrev() {
+    return current.prev.item;
+  }
+
+  @Override 
+  public CircularList<E> clone() {
+    return new CircularList<E>(this.start, this.current);
   }
 }

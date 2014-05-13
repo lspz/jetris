@@ -34,6 +34,7 @@ public class TetriminoState {
     return this.grid;
   }
 
+  // Bound is the actual occupied area (e.g: all row/col has at least one cell)
   public Rectangle getBound() {
     return this.bound;
   }

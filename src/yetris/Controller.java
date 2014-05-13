@@ -3,6 +3,7 @@ package yetris;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 
@@ -10,20 +11,8 @@ import yetris.model.Model;
 import yetris.model.Tetrimino;
 import yetris.view.MainView;
 
-public class Controller implements KeyListener, ActionListener;
+public class Controller implements KeyListener, ActionListener
 {
-
-  private class GameTicker extends TimerTask {
-    Controller controller;
-    public GameTicker(Controller controller){
-      this.controller = controller;
-    }
-
-    @Override
-    public void run() {
-      this.controller.tick();
-    }
-  }
 
   private final int INVERVAL_IN_MS = 1000;
 
@@ -31,38 +20,48 @@ public class Controller implements KeyListener, ActionListener;
   MainView view;
   Timer timer;
 
+  private Boolean isSuspended;
+
   public Controller(Model model, MainView view){
     this.model = model;
     this.view = view;
-    this.timer = new Timer();
 
     view.setController(this);
+
+    isSuspended = false;
   }
 
   public void start(){
-    timer.scheduleAtFixedRate(new GameTicker(this), 0, INVERVAL_IN_MS);
+    model.restartGame();
+    view.restartGame();
+    view.refresh();
+    view.requestFocus();
+
+    this.timer = new Timer();
+    timer.scheduleAtFixedRate(
+      new TimerTask(){ public void run() {tick();} }, 
+      0, 
+      INVERVAL_IN_MS
+    );
   }
 
   public void stop(){
     timer.cancel();
-  }
-
-  public void suspend(){
-    // huh? implement
+    timer = null;
   }
 
   public void tick(){
-    model.tick();
-    view.refresh();
+    if (!isSuspended) {
+      model.tick();
+      view.refresh();
+    }
   }
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    cmd = e.getActionCommand();
-    if (e == 'restart'){
+    String cmd = e.getActionCommand();
+    if (cmd == "restart"){
       stop();
-      model.restartGame();
-      view.refresh();
       start();
     }
   }
@@ -87,6 +86,10 @@ public class Controller implements KeyListener, ActionListener;
     else if (keyCode == KeyEvent.VK_DOWN) {
       model.tryMove(0, 1);
       view.refresh();   
+    }
+    else if (keyCode == KeyEvent.VK_SPACE) {
+      isSuspended = !isSuspended;
+      view.setStatusMsg(isSuspended ? "(PAUSED)" : "");
     }
   }
 
