@@ -1,4 +1,5 @@
 package yetris.model;
+import java.util.ArrayList;
 import java.awt.Point;
 import java.awt.Rectangle;
 
@@ -35,6 +36,10 @@ public class Grid
     return canOccupySpace(pos, tetrimino.getTranslatedBound(pos), tetrimino.getState().getGrid());
   }
 
+  public Boolean canOccupySpace(Tetrimino tetrimino){
+    return canOccupySpace(tetrimino.getPos(), tetrimino.getTranslatedBound(), tetrimino.getState().getGrid());
+  }
+
   public Boolean canOccupySpace(Point pos, Rectangle tetriminoBound, int[][] tetriminoGrid){
     return gridBound.contains(tetriminoBound) && !isOverlapping(pos, tetriminoGrid);
   }
@@ -68,15 +73,18 @@ public class Grid
     }
   }
 
-  public int checkForLines(){
-    int result = 0;
+  public Integer[] checkForLines(){
+    ArrayList<Integer> lines = new ArrayList<Integer>();
+
     for (int y = 0; y < gridBound.height; y++){
       if (hasLineFullyOccupied(y)) {
         removeLine(y);
-        result++;
+        lines.add(y);
       } 
     }  
-    return result;
+
+    Integer[] result = new Integer[lines.size()];
+    return lines.toArray(result);
   }
 
   private Boolean hasLineFullyOccupied(int y){

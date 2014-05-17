@@ -12,13 +12,14 @@ public final class ViewCommon {
   public static EnumMap<TetriminoType, Color> getColorMap(){
     if (colorMap == null){
       colorMap = new EnumMap<TetriminoType, Color>(TetriminoType.class);
-      colorMap.put(TetriminoType.I, Color.BLUE);
-      colorMap.put(TetriminoType.J, Color.YELLOW);
-      colorMap.put(TetriminoType.L, Color.CYAN);
-      colorMap.put(TetriminoType.O, Color.GREEN);
-      colorMap.put(TetriminoType.S, Color.RED);
-      colorMap.put(TetriminoType.Z, Color.GRAY);
-      colorMap.put(TetriminoType.T, Color.WHITE);
+      colorMap.put(TetriminoType.NONE, Color.BLACK);
+      colorMap.put(TetriminoType.I, new Color(221, 30, 47));
+      colorMap.put(TetriminoType.J, new Color(235, 176, 53));
+      colorMap.put(TetriminoType.L, new Color(6, 162, 203));
+      colorMap.put(TetriminoType.O, new Color(33, 133,89));
+      colorMap.put(TetriminoType.S, new Color(208, 198, 177));
+      colorMap.put(TetriminoType.Z, new Color(208, 198, 177));
+      colorMap.put(TetriminoType.T, new Color(25, 40, 35));
     }
 
     return colorMap;

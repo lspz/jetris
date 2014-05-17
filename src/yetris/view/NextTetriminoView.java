@@ -21,6 +21,8 @@ public class NextTetriminoView extends JPanel {
     super();
     this.model = model;
     
+    setOpaque(false);
+
     if (model.getConfig().debug){
       setBorder(javax.swing.BorderFactory.createLineBorder(Color.BLACK));
     }
@@ -28,6 +30,7 @@ public class NextTetriminoView extends JPanel {
 
   public void refresh(){
     repaint();
+    revalidate();
   }
 
   @Override
@@ -58,11 +61,6 @@ public class NextTetriminoView extends JPanel {
         }
       }
     }
-  }
-
-  private void paintBackground(Graphics g){
-    g.setColor(Color.BLACK);
-    g.fillRect(0, 0, getWidth(), getHeight());
   }
 
   private void paintCell(Graphics g, int x, int y, TetriminoType type){

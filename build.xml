@@ -9,7 +9,7 @@
   </target>
 
   <target name="run" >
-    <java classpath="classes" classname="yetris.App" fork="true"/>
+    <java classpath="classes;asset" classname="yetris.App" fork="true"/>
   </target>
 
   <target name="all" depends="clean, compile, run"/>

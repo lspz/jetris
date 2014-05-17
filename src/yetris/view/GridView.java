@@ -28,6 +28,19 @@ public class GridView extends JPanel {
     setBorder(BorderFactory.createEtchedBorder());
   }
 
+  public void animateLines(Integer[] lines){
+    try {
+      paintLines(lines, Color.WHITE);
+      Thread.sleep(300);
+      paintLines(lines, Color.BLACK);
+      Thread.sleep(300);
+      paintLines(lines, Color.WHITE);
+    }
+    catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
+
   @Override
   public Dimension getPreferredSize(){
     return new Dimension(BLOCK_SIZE * grid.getWidth(), BLOCK_SIZE * grid.getHeight());
@@ -74,13 +87,25 @@ public class GridView extends JPanel {
 
     if (model.getConfig().debug){
       Rectangle bound = tetrimino.getTranslatedBound();
-      g.setColor(Color.ORANGE);
+      g.setColor(Color.WHITE);
       g.drawRect(getAbsPos(bound.x), getAbsPos(bound.y), bound.width * BLOCK_SIZE, bound.height * BLOCK_SIZE);
     }
   }
 
+  private void paintLines(Integer[] lines, Color color){
+    Graphics g = getGraphics();
+    for (int i = 0; i < lines.length; i++) {
+      for (int x = 0; x < grid.getWidth(); x++) {
+        paintCell(g, x, lines[i], color);
+      }
+    }
+  }
   private void paintCell(Graphics g, int x, int y, TetriminoType type){
-    g.setColor(ViewCommon.getColorMap().get(type));
+    paintCell(g, x, y, ViewCommon.getColorMap().get(type));
+  }
+
+  private void paintCell(Graphics g, int x, int y, Color color){
+    g.setColor(color);
     g.fillRect(getAbsPos(x), getAbsPos(y), BLOCK_SIZE, BLOCK_SIZE);
     g.setColor(Color.BLACK);
     g.drawRect(getAbsPos(x), getAbsPos(y), BLOCK_SIZE, BLOCK_SIZE);

@@ -15,6 +15,8 @@ public class MainView extends JFrame {
   public MainView(Model model){
     super();
 
+    //setUndecorated(true);
+
     this.model = model; 
     
     gridView = new GridView(model);
@@ -31,13 +33,22 @@ public class MainView extends JFrame {
     setFocusable(true);
   }
 
-  public void restartGame(){
-    sidePaneView.btnRestart.setText("Restart");
+  public void initStartGame(){
+    sidePaneView.initStartGame();
+    setStatusMsg("");
   }
 
   public void refresh(){
     gridView.repaint();
     sidePaneView.refresh();
+  }
+
+  public void animateLines(Integer[] lines){
+    gridView.animateLines(lines);  
+  }
+
+  public void gameOver(){
+    setStatusMsg("GAME OVER");
   }
 
   public void setController(Controller controller){

@@ -9,12 +9,15 @@ import java.awt.Dimension;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;   
 import yetris.model.Model;
 
 public class SidePaneView extends javax.swing.JPanel {
 
     Model model;
     NextTetriminoView nextTetriminoView;
+
+    ImageIcon iconRestart, iconPlay;
     /**
      * Creates new form SidePaneView
      */
@@ -22,15 +25,17 @@ public class SidePaneView extends javax.swing.JPanel {
         initComponents();
         this.model = model;
 
-        labelStatus.setText("");
-
         nextTetriminoView = new NextTetriminoView(model);
         panelNext.setLayout(new FlowLayout());
         panelNext.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panelNext.setAlignmentY(Component.CENTER_ALIGNMENT);
         panelNext.add(nextTetriminoView);
         panelNext.setVisible(model.getConfig().showNextTetrimino);
 
+        iconRestart = new ImageIcon(this.getClass().getResource("/img/restart.png"));
+        iconPlay = new ImageIcon(this.getClass().getResource("/img/play.png"));
         btnRestart.setFocusable(false);
+        btnRestart.setIcon(iconPlay);
     }
 
     public void refresh(){
@@ -38,6 +43,11 @@ public class SidePaneView extends javax.swing.JPanel {
     	labelScore.setText(Integer.toString(model.getScore()));
     	labelLevel.setText(Integer.toString(model.getLevel()));
     	labelLines.setText(Integer.toString(model.getLines()));
+    }
+
+    public void initStartGame(){
+        btnRestart.setText("Restart");
+        btnRestart.setIcon(iconRestart);
     }
 
 	public void addActionListener(ActionListener al){
@@ -67,9 +77,6 @@ public class SidePaneView extends javax.swing.JPanel {
         labelLines = new javax.swing.JLabel();
         panelNext = new javax.swing.JPanel();
         btnRestart = new javax.swing.JButton();
-        labelStatus = new javax.swing.JLabel();
-
-        setMinimumSize(new java.awt.Dimension(137, 350));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         jPanel1.setLayout(new java.awt.GridLayout(3, 2, 5, 0));
@@ -79,6 +86,8 @@ public class SidePaneView extends javax.swing.JPanel {
         jLabel5.setText("Score:");
         jPanel1.add(jLabel5);
 
+        labelScore.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        labelScore.setForeground(new java.awt.Color(51, 153, 0));
         labelScore.setText("100");
         labelScore.setName("labelScore"); // NOI18N
         jPanel1.add(labelScore);
@@ -89,6 +98,7 @@ public class SidePaneView extends javax.swing.JPanel {
         jLabel8.setText("Level:");
         jPanel1.add(jLabel8);
 
+        labelLevel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         labelLevel.setText("100");
         jPanel1.add(labelLevel);
 
@@ -97,31 +107,18 @@ public class SidePaneView extends javax.swing.JPanel {
         jLabel10.setText("Lines:");
         jPanel1.add(jLabel10);
 
+        labelLines.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         labelLines.setText("100");
         jPanel1.add(labelLines);
 
         panelNext.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), "Next", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
-
-        javax.swing.GroupLayout panelNextLayout = new javax.swing.GroupLayout(panelNext);
-        panelNext.setLayout(panelNextLayout);
-        panelNextLayout.setHorizontalGroup(
-            panelNextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panelNextLayout.setVerticalGroup(
-            panelNextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 101, Short.MAX_VALUE)
-        );
+        panelNext.setLayout(null);
 
         btnRestart.setText("Start");
         btnRestart.setActionCommand("restart");
         btnRestart.setBorder(null);
         btnRestart.setFocusable(false);
         btnRestart.setMinimumSize(new java.awt.Dimension(90, 15));
-
-        labelStatus.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        labelStatus.setForeground(new java.awt.Color(0, 0, 204));
-        labelStatus.setText("Game is Paused");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -137,9 +134,7 @@ public class SidePaneView extends javax.swing.JPanel {
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(labelStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnRestart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnRestart, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(23, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -148,19 +143,14 @@ public class SidePaneView extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(panelNext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
-                .addComponent(labelStatus)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panelNext, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
                 .addComponent(btnRestart, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-    }// </editor-fold>                    
-                  
-
+    }// </editor-fold>                                          
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JLabel labelStatus;
     public javax.swing.JButton btnRestart;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel5;

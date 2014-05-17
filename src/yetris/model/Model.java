@@ -2,6 +2,7 @@ package yetris.model;
 
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.lang.Math;
 
 public class Model 
 {
@@ -9,7 +10,8 @@ public class Model
   final int HEIGHT = 18;
   final int START_X = 2;
   final int START_Y = 0; 
-  final int FREE_SCORE_INTERVAL = 100;
+  final int FREE_SCORE_INTERVAL = 60;
+  final int START_TICK_INTERVAL = 1000;
 
   private Config config;
 
@@ -23,6 +25,7 @@ public class Model
   private int score;
   private int level;
   private int lines;
+  private int tickInterval; // in ms
 
   public Model(){
     config = new Config();
@@ -33,22 +36,24 @@ public class Model
     activeTetrimino = null;
     tickCounter = 0;
     score = 0;
-    level = 0;
+    level = 1;
     lines = 0;
+    tickInterval = START_TICK_INTERVAL;
 
     nextTetrimino = tetriminoFactory.createRandom();
   }
 
-  public void tick(){
-    int linesRemoved = grid.checkForLines();
-    incLines(linesRemoved);
-
+  // False indicate game over
+  public Boolean tick(){
     if (activeTetrimino == null) {
       activeTetrimino = nextTetrimino; 
       activeTetrimino.getPos().setLocation(START_X, START_Y); 
+      if (!grid.canOccupySpace(activeTetrimino)){
+        return false;
+      }
       
       nextTetrimino = tetriminoFactory.createRandom();
-      return;
+      return true;
     }
 
     if (grid.canKeepFalling(activeTetrimino)) { 
@@ -60,13 +65,13 @@ public class Model
     }
 
     tickCounter++;
+    afterTick();
 
-    updateScore();
+    return true;
   }
 
   public void tryRotate(){
     if (activeTetrimino != null) {
-      // huh? this doesnt work right
       TetriminoState rotatedState = activeTetrimino.getStateForRotateRight();
       Rectangle rotatedBound = new Rectangle(rotatedState.getBound());
       rotatedBound.translate(activeTetrimino.getPos().x, activeTetrimino.getPos().y);
@@ -88,13 +93,34 @@ public class Model
     }
   }
 
+  public Integer[] checkForLines(){
+    Integer[] result = grid.checkForLines();
+    incLines(result.length);
+    return result;
+  }
+
   public void incLines(int val){
+    if (val==0) { return ;}
     lines += val;
-    incScore(val * val * 20);
+    incScore(((int) Math.pow(2.7, val)) * 20);
+
+    System.out.println("Add Lines: " + Integer.toString(val));
   }
 
   public void incScore(int val){
     score += val;
+    
+    System.out.println("Add Score: " + Integer.toString(val) );
+  }
+
+  public void incLevel(int val){
+    level += val;
+    
+    if (tickInterval >= 200) {
+      tickInterval -= 100 * val;
+    }
+    
+    System.out.println("Add Level: " + Integer.toString(val) );
   }
 
   public void restartGame(){
@@ -104,12 +130,15 @@ public class Model
     grid.reset();
   }
 
-  private void updateScore(){
+  private void afterTick(){
     if ((tickCounter % FREE_SCORE_INTERVAL) == 0){
       incScore(5);
     }
+    int progress = (tickCounter * 50) + (score) - (level * 5000);
+    if (progress > 0){
+      incLevel(1);
+    }  
   }
-
 
   public Config getConfig() {
     return this.config;
@@ -137,5 +166,9 @@ public class Model
 
   public int getLines() {
     return this.lines;
+  }
+
+  public int getTickInterval() {
+    return this.tickInterval;
   }
 }

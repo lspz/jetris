@@ -29,7 +29,7 @@ public class App
     
     view.setVisible(true);
 
-    controller.start();
+    //controller.start();
   }
   
 }
