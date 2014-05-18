@@ -125,7 +125,7 @@ public class Controller implements KeyListener, ActionListener
       } 
       else if (gameState != GameState.GAME_OVER) {
         gameState = (gameState == GameState.STARTED ? GameState.PAUSED : GameState.STARTED);
-        view.setStatusMsg(gameState == GameState.PAUSED ? "(PAUSED)" : ""); 
+        view.gamePaused(gameState == GameState.PAUSED); 
       }
 
     }

@@ -1,7 +1,10 @@
 package yetris.view;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import yetris.model.Model; 
 import yetris.Controller;
@@ -21,6 +24,7 @@ public class MainView extends JFrame {
     
     gridView = new GridView(model);
     sidePaneView = new SidePaneView(model);
+
     getContentPane().add(gridView, BorderLayout.CENTER);
     getContentPane().add(sidePaneView, BorderLayout.WEST);
     
@@ -49,6 +53,18 @@ public class MainView extends JFrame {
 
   public void gameOver(){
     setStatusMsg("GAME OVER");
+    gridView.drawText("GAME OVER");
+  }
+
+  public void gamePaused(Boolean isPaused){
+    if (isPaused){
+      setStatusMsg("PAUSED");  
+      gridView.drawText("PAUSED");
+    }
+    else {
+      setStatusMsg("");
+      gridView.repaint();
+    }
   }
 
   public void setController(Controller controller){
