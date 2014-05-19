@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 
 import yetris.model.Model; 
 import yetris.Controller;
@@ -74,5 +75,9 @@ public class MainView extends JFrame {
 
   public void setStatusMsg(String msg){
     setTitle("Tetris" + (msg !="" ? " - " : "") + msg);  
+  }
+
+  public boolean showYesNoPrompt(String msg, String title){
+    return JOptionPane.showConfirmDialog(this, msg, "", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION;
   }
 }

@@ -81,19 +81,21 @@ public class Controller implements KeyListener, ActionListener
   public void actionPerformed(ActionEvent e) {
     String cmd = e.getActionCommand();
     if (cmd == "restart"){
-      stop();
-      start();
+      if (gameState == GameState.STOPPED){
+        start();
+      }
+      else {
+        GameState originalState = gameState;
+        gameState = GameState.PAUSED;
+        if (view.showYesNoPrompt("Are you sure?", "Restart Game")){
+          stop();
+          start();
+        }
+        gameState = originalState;
+      }
     }
   }
 
-  private void scheduleTimer(){
-    this.timer = new Timer();
-    timer.scheduleAtFixedRate(
-      new TimerTask(){ public void run() {tick();} }, 
-      0, 
-      currentTickInterval
-    );
-  }
 
   @Override 
   public void keyPressed(KeyEvent e){
@@ -137,5 +139,14 @@ public class Controller implements KeyListener, ActionListener
 
   @Override 
   public void keyTyped(KeyEvent e){
+  }
+
+  private void scheduleTimer(){
+    this.timer = new Timer();
+    timer.scheduleAtFixedRate(
+      new TimerTask(){ public void run() {tick();} }, 
+      0, 
+      currentTickInterval
+    );
   }
 }
