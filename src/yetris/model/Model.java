@@ -11,7 +11,6 @@ public class Model
   final int START_X = 2;
   final int START_Y = 0; 
   final int FREE_SCORE_INTERVAL = 60;
-  final int START_TICK_INTERVAL = 1000;
 
   private Config config;
 
@@ -38,7 +37,6 @@ public class Model
     score = 0;
     level = 1;
     lines = 0;
-    tickInterval = START_TICK_INTERVAL;
 
     nextTetrimino = tetriminoFactory.createRandom();
   }
@@ -113,22 +111,11 @@ public class Model
     System.out.println("Add Score: " + Integer.toString(val) );
   }
 
-  public void incLevel(int val){
-    level += val;
-    
-    if (tickInterval >= 200) {
-      tickInterval -= 100 * val;
-    }
-    
-    System.out.println("Add Level: " + Integer.toString(val) );
-  }
-
   public void restartGame(){
     score = 0;
     tickCounter = 0;
     activeTetrimino = null;
     level = config.startFromLvl;
-    incLevel(level-1);
     grid.reset();
   }
 
@@ -138,7 +125,7 @@ public class Model
     }
     int progress = (tickCounter * 50) + (score) - (level * 5000);
     if (progress > 0){
-      incLevel(1);
+      level++;
     }  
   }
 
@@ -171,6 +158,6 @@ public class Model
   }
 
   public int getTickInterval() {
-    return this.tickInterval;
+    return 1400 - (level * 120);
   }
 }
