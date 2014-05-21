@@ -19,7 +19,7 @@ public final class ViewCommon {
       colorMap.put(TetriminoType.O, new Color(33, 133,89));
       colorMap.put(TetriminoType.S, new Color(208, 198, 177));
       colorMap.put(TetriminoType.Z, new Color(208, 198, 100));
-      colorMap.put(TetriminoType.T, new Color(25, 40, 35));
+      colorMap.put(TetriminoType.T, new Color(62, 102, 87));
     }
 
     return colorMap;

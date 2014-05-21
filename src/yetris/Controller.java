@@ -80,19 +80,35 @@ public class Controller implements KeyListener, ActionListener
   @Override
   public void actionPerformed(ActionEvent e) {
     String cmd = e.getActionCommand();
-    if (cmd == "restart"){
+    if (cmd.equals("restart")){
       if (gameState == GameState.STOPPED){
         start();
       }
       else {
-        GameState originalState = gameState;
         gameState = GameState.PAUSED;
+        view.gamePaused(true); 
+
         if (view.showYesNoPrompt("Are you sure?", "Restart Game")){
           stop();
           start();
         }
-        gameState = originalState;
+
+        view.gamePaused(false); 
+        gameState = GameState.STARTED;
       }
+    }
+
+    else if (cmd.equals("options")){
+      GameState originalState = gameState;
+      gameState = GameState.PAUSED;
+      view.gamePaused(true); 
+      
+      if (view.showOptionDialog()){
+        view.reloadOptions(); 
+      }
+
+      view.gamePaused(false); 
+      gameState = originalState;
     }
   }
 

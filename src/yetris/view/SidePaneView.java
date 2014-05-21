@@ -32,7 +32,7 @@ public class SidePaneView extends javax.swing.JPanel {
     Model model;
     NextTetriminoView nextTetriminoView;
 
-    ImageIcon iconRestart, iconPlay;
+    ImageIcon iconRestart, iconPlay, iconOptions;
     /**
      * Creates new form SidePaneView
      */
@@ -49,8 +49,10 @@ public class SidePaneView extends javax.swing.JPanel {
 
         iconRestart = new ImageIcon(this.getClass().getResource("/img/restart.png"));
         iconPlay = new ImageIcon(this.getClass().getResource("/img/play.png"));
+        iconOptions = new ImageIcon(this.getClass().getResource("/img/options.png"));
         btnRestart.setFocusable(false);
         btnRestart.setIcon(iconPlay);
+        btnOptions.setIcon(iconOptions);
     }
 
     public void refresh(){
@@ -67,8 +69,12 @@ public class SidePaneView extends javax.swing.JPanel {
 
 	public void addActionListener(ActionListener al){
 		btnRestart.addActionListener(al);
+        btnOptions.addActionListener(al);
 	}
 
+    public void setNextPaneVisible(Boolean isVisible){
+        panelNext.setVisible(isVisible);
+    }
     // @Override
     // public Dimension getPreferredSize(){
     //   return new Dimension(137, 350); // Should ideally never reach here
@@ -139,7 +145,7 @@ public class SidePaneView extends javax.swing.JPanel {
         btnRestart.setMinimumSize(new Dimension(90, 15));
 
         btnOptions.setText("Options");
-        btnOptions.setActionCommand("restart");
+        btnOptions.setActionCommand("options");
         btnOptions.setBorder(null);
         btnOptions.setFocusable(false);
         btnOptions.setMinimumSize(new Dimension(90, 15));

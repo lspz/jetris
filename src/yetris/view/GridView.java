@@ -23,9 +23,12 @@ public class GridView extends JPanel {
   private static final int BLOCK_SIZE = 28;
   private static final int BORDER_INSET = 5;
   private static final Color BG_COLOR = Color.BLACK;
-  
+  private static final Color GRID_LINE_COLOR = new Color(22,22,22);
+
   private Model model;
   private Grid grid;
+
+  private String currentGridText;
 
 
   public GridView(Model model){
@@ -39,6 +42,8 @@ public class GridView extends JPanel {
     //setBorder(border1); 
     Border border2 = BorderFactory.createEtchedBorder();
     setBorder(BorderFactory.createCompoundBorder(border1, border2));
+
+    currentGridText = "";
   }
 
   public void animateLines(Integer[] lines){
@@ -55,8 +60,11 @@ public class GridView extends JPanel {
     }
   }
 
-  public void drawText(String text){
-    Graphics2D g = (Graphics2D) getGraphics();
+  public void setGridText(String text){
+    currentGridText = text;
+  }
+
+  private void drawText(Graphics2D g, String text){
     Font font = new Font("tahoma", Font.BOLD, 24);
     g.setFont(font);
 
@@ -105,6 +113,10 @@ public class GridView extends JPanel {
 
     paintActiveTetrimino(g);
 
+    if (!currentGridText.equals("")){
+      drawText((Graphics2D) g, currentGridText);
+    }
+
     for (int x = 0; x < grid.getWidth() ; x++) {
       for (int y = 0; y < grid.getHeight() ; y++){
         if (grid.getCell(x, y) != TetriminoType.NONE){
@@ -117,6 +129,17 @@ public class GridView extends JPanel {
   private void paintBackground(Graphics g){
     g.setColor(BG_COLOR);
     g.fillRect(getInsets().left, getInsets().top, getWidth(), getHeight());
+
+    if (model.getConfig().showGridLine){
+      g.setColor(GRID_LINE_COLOR);
+      Insets insets = getInsets();
+      for (int x = 0; x < grid.getWidth() ; x++) {
+        g.drawLine((x * BLOCK_SIZE) + insets.left , insets.top, (x * BLOCK_SIZE) + insets.left, getHeight() - insets.bottom);
+      }
+      for (int y = 0; y < grid.getHeight() ; y++) {
+        g.drawLine(insets.left , (y * BLOCK_SIZE) + insets.top, getWidth() - insets.left, (y * BLOCK_SIZE) + insets.top);
+      }
+    }
   }
   
   private void paintActiveTetrimino(Graphics g){
@@ -157,7 +180,7 @@ public class GridView extends JPanel {
   private void paintCell(Graphics g, int x, int y, Color color){
     g.setColor(color);
     g.fillRect(getAbsPos(x), getAbsPos(y), BLOCK_SIZE, BLOCK_SIZE);
-    g.setColor(BG_COLOR);
+    g.setColor(model.getConfig().showGridLine ? GRID_LINE_COLOR : BG_COLOR);
     g.drawRect(getAbsPos(x), getAbsPos(y), BLOCK_SIZE, BLOCK_SIZE);
   }
 

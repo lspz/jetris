@@ -127,6 +127,8 @@ public class Model
     score = 0;
     tickCounter = 0;
     activeTetrimino = null;
+    level = config.startFromLvl;
+    incLevel(level-1);
     grid.reset();
   }
 

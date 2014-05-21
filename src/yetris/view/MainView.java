@@ -54,18 +54,25 @@ public class MainView extends JFrame {
 
   public void gameOver(){
     setStatusMsg("GAME OVER");
-    gridView.drawText("GAME OVER");
+    gridView.setGridText("GAME OVER");
+    gridView.repaint();
   }
 
   public void gamePaused(Boolean isPaused){
     if (isPaused){
       setStatusMsg("PAUSED");  
-      gridView.drawText("PAUSED");
+      gridView.setGridText("PAUSED");
     }
     else {
       setStatusMsg("");
-      gridView.repaint();
+      gridView.setGridText("");
     }
+    gridView.repaint();
+  }
+
+  public void reloadOptions(){
+    sidePaneView.setNextPaneVisible(model.getConfig().showNextTetrimino);
+    gridView.repaint();
   }
 
   public void setController(Controller controller){
@@ -79,5 +86,10 @@ public class MainView extends JFrame {
 
   public boolean showYesNoPrompt(String msg, String title){
     return JOptionPane.showConfirmDialog(this, msg, "", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION;
+  }
+
+  public boolean showOptionDialog(){
+    OptionDialogView dlg = new OptionDialogView(this, model.getConfig());
+    return dlg.showDialog();
   }
 }
