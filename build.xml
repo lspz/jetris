@@ -1,4 +1,4 @@
-<project basedir=".">
+<project basedir="." name="jetris" default="all">
   <target name="clean">
     <delete dir="classes"/>
   </target>
