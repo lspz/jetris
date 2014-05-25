@@ -1,4 +1,4 @@
-package yetris.view;
+package jetris.view;
 
 import java.lang.Math;
 import java.awt.Font;
@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.BorderFactory;
 
-import yetris.model.*; 
+import jetris.model.*; 
 
 // 0, 0 coord is top left
 

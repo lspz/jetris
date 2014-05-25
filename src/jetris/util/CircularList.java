@@ -1,4 +1,4 @@
-package yetris.util;
+package jetris.util;
 
 public class CircularList<E> implements Cloneable{
 

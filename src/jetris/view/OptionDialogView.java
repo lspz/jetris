@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package yetris.view;
+package jetris.view;
 
 import java.awt.Font;
 import java.awt.event.ActionListener;
@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
-import yetris.model.Config;
+import jetris.model.Config;
 
 /**
  *

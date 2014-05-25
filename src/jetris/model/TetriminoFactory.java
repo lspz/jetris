@@ -1,9 +1,9 @@
-package yetris.model;
+package jetris.model;
 
 import java.util.EnumMap;
 import java.util.Random;
 
-import yetris.util.CircularList;
+import jetris.util.CircularList;
 
 public class TetriminoFactory 
 {

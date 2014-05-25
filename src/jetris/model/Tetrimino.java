@@ -1,9 +1,9 @@
-package yetris.model;
+package jetris.model;
 
 import java.awt.Point;
 import java.awt.Rectangle;
 
-import yetris.util.CircularList;
+import jetris.util.CircularList;
 
 public class Tetrimino implements Cloneable 
 {

@@ -1,14 +1,15 @@
-package yetris.view;
+package jetris.view;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.BorderLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JOptionPane;
 
-import yetris.model.Model; 
-import yetris.Controller;
+import jetris.model.Model; 
+import jetris.Controller;
 
 public class MainView extends JFrame {
 
@@ -36,6 +37,10 @@ public class MainView extends JFrame {
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     setLocationRelativeTo(null);
     setFocusable(true);
+
+
+    ImageIcon icon = new ImageIcon(getClass().getResource("/img/logo.png"));
+    setIconImage(icon.getImage());
   }
 
   public void initStartGame(){

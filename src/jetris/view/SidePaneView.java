@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package yetris.view;
+package jetris.view;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;   
-import yetris.model.Model;
+import jetris.model.Model;
 
 /**
  *

@@ -1,4 +1,4 @@
-package yetris;
+package jetris;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -7,9 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 
-import yetris.model.Model;
-import yetris.model.Tetrimino;
-import yetris.view.MainView;
+import jetris.model.Model;
+import jetris.model.Tetrimino;
+import jetris.view.MainView;
 
 public class Controller implements KeyListener, ActionListener
 {

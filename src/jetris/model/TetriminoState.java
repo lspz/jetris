@@ -1,4 +1,4 @@
-package yetris.model;
+package jetris.model;
 
 import java.awt.Rectangle;
 

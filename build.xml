@@ -1,15 +1,43 @@
 <project basedir="." name="jetris" default="all">
   <target name="clean">
-    <delete dir="classes"/>
+    <delete dir="build"/>
+    <delete dir="dist"/>
   </target>
 
   <target name="compile">
-    <mkdir dir="classes"/>
-    <javac srcdir="src" destdir="classes" debug="on" includeAntRuntime="false" />
+    <mkdir dir="build"/>
+    <!-- <mkdir dir="build/classes"/> -->
+    <javac srcdir="src" destdir="build" debug="on" includeAntRuntime="false" />
+  </target>
+
+  <target name="jar" depends="compile">
+    <copydir src="asset" dest="build"/>
+    <mkdir dir="dist" />
+    <jar destfile="dist/jetris.jar"  basedir="build" >
+      <manifest>
+        <attribute name="Main-Class" value="jetris.App" />
+      </manifest>
+    </jar>
+  </target>
+
+  <target name="deb" depends="jar">
+    <copy file="dist/jetris.jar" todir="debian/usr/lib/jetris" />
+    <exec executable="dpkg">
+      <arg value="--build"/>
+      <arg value="debian"/>
+      <arg value="dist/jetris.deb" />
+    </exec>
+  </target>
+
+  <target name="install-deb" depends="deb">
+    <exec executable="dpkg">
+      <arg value="-i"/>
+      <arg value="dist/jetris.deb" />
+    </exec>
   </target>
 
   <target name="run" >
-    <java classpath="classes;asset" classname="yetris.App" fork="true">
+    <java classpath="build" classname="jetris.App" fork="true">
       <arg value="-Dswing.aatext=true"/>
     </java>
   </target>

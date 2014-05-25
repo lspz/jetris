@@ -1,8 +1,8 @@
-package yetris.view;
+package jetris.view;
 
 import java.util.EnumMap;
 import java.awt.Color;
-import yetris.model.TetriminoType;
+import jetris.model.TetriminoType;
 
 public final class ViewCommon {
   private ViewCommon() {}

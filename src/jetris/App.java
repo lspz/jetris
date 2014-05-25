@@ -1,9 +1,9 @@
-package yetris;
+package jetris;
 
 import javax.swing.*; 
 
-import yetris.model.Model;
-import yetris.view.MainView;
+import jetris.model.Model;
+import jetris.view.MainView;
 
 public class App 
 {

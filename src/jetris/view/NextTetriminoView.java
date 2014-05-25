@@ -1,4 +1,4 @@
-package yetris.view;
+package jetris.view;
 
 import java.awt.Dimension;
 import java.awt.Rectangle;
@@ -6,9 +6,9 @@ import java.awt.Graphics;
 import java.awt.Color;
 import javax.swing.JPanel;
 
-import yetris.model.TetriminoType;
-import yetris.model.Tetrimino;
-import yetris.model.Model;
+import jetris.model.TetriminoType;
+import jetris.model.Tetrimino;
+import jetris.model.Model;
 
 public class NextTetriminoView extends JPanel {
 

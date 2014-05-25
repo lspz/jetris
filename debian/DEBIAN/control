@@ -1,0 +1,7 @@
+Package: jetris
+Version: 0.1
+Section: game
+Priority: optional
+Architecture: all
+Maintainer: Louis Parengkuan 
+Description: Simple Tetris
