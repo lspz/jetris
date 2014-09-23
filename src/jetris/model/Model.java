@@ -123,7 +123,7 @@ public class Model
     if ((tickCounter % FREE_SCORE_INTERVAL) == 0){
       incScore(5);
     }
-    int progress = (tickCounter * 50) + (score) - (level * 5000);
+    int progress = (tickCounter * 50) + (score) - (level * 4000);
     if (progress > 0){
       level++;
     }  

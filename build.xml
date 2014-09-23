@@ -5,13 +5,13 @@
   </target>
 
   <target name="compile">
+    <copydir src="asset" dest="build"/>
     <mkdir dir="build"/>
     <!-- <mkdir dir="build/classes"/> -->
     <javac srcdir="src" destdir="build" debug="on" includeAntRuntime="false" />
   </target>
 
   <target name="jar" depends="compile">
-    <copydir src="asset" dest="build"/>
     <mkdir dir="dist" />
     <jar destfile="dist/jetris.jar"  basedir="build" >
       <manifest>

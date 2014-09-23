@@ -49,6 +49,7 @@ public class GridView extends JPanel {
   public void animateLines(Integer[] lines){
     //Graphics g = getGraphics();
     try {
+      // huh? the timer doesnt seems to be sleeping. Need to figure out better way to suspend
       paintLines(lines, Color.WHITE);
       Thread.sleep(300);
       paintLines(lines, BG_COLOR);
